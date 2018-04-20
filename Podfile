@@ -5,4 +5,5 @@ pod 'FacebookCore'
 pod 'FacebookLogin'
 pod 'Alamofire'
 pod 'RealmSwift'
+pod 'SVProgressHUD'
 end

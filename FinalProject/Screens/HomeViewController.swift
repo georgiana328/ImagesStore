@@ -7,6 +7,7 @@
 //
 
 import UIKit
+//import SVProgressHUD
 
 class HomeViewController: UIViewController {
 
@@ -42,12 +43,12 @@ class HomeViewController: UIViewController {
             itemsTableView.backgroundColor = UIColor.white
         }
         itemsTableView.reloadData()
-        
         checkKeyword()
     }
     
     @objc private func refreshItemsData(_ sender: Any) {
         // Fetch Items Data
+
         DispatchQueue.main.async {
             self.searchBar.text = ""
             self.items = self.databaseManager.getItems()
@@ -78,6 +79,8 @@ class HomeViewController: UIViewController {
         if let existsImages = UserDefaults.standard.value(forKey: "imageExists") as? Bool {
             if !existsImages {
                 let keyword = UserDefaults.standard.value(forKey: "keyword")
+                // SVProgressHUD.show()
+
                 ApiManager.shared.getImages(for: keyword as! String) { success, items  in
                     if !success {
                         print("\n\nFailed request\n")
@@ -86,6 +89,8 @@ class HomeViewController: UIViewController {
                     UserDefaults.standard.set(true, forKey: "imageExists")
                     self.items = items
                     self.itemsTableView.reloadData()
+
+                    // SVProgressHUD.dismiss()
                 }
             } else {
                 if (searchBar.text?.isEmpty)! {
