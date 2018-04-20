@@ -11,7 +11,7 @@ import RealmSwift
 
 public final class UserObject: Object {
     @objc dynamic var token = ""
-    var favoriteimagesIDs = List<ImageIDObject>() //[ImageIDObject] = []
+    var favoriteimagesIDs = List<ImageIDObject>()
     
     override public static func primaryKey() -> String? {
         return "token"
@@ -49,13 +49,13 @@ extension User: Persistable {
         user.token = token
         
         let ids = favoriteImagesIDs.compactMap{ $0.managedObject()}
-        
-        let pizdamaszii = List<ImageID>()
+        let imageIDsList = List<ImageIDObject>()
+
         for i in ids {
-            pizdamaszii
+            imageIDsList.append(i)
         }
-        user.favoriteimagesIDs = ids.map (ids) { mapper.map($0) }
-        
+
+        user.favoriteimagesIDs = imageIDsList
         return user
     }
 }

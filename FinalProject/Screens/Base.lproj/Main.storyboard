@@ -141,6 +141,26 @@
                                     <outlet property="userName" destination="N0E-iU-W6B" id="kvZ-8i-e71"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoFavoriteCell" id="ymE-U9-qmS">
+                                <rect key="frame" x="0.0" y="372" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ymE-U9-qmS" id="KPL-Rp-S9k">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No favorite images" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bqe-LS-8II">
+                                            <rect key="frame" x="116" y="12" width="143" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Bqe-LS-8II" firstAttribute="centerX" secondItem="KPL-Rp-S9k" secondAttribute="centerX" id="B8U-Xf-dzT"/>
+                                        <constraint firstItem="Bqe-LS-8II" firstAttribute="centerY" secondItem="KPL-Rp-S9k" secondAttribute="centerY" id="SO7-xC-20n"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="lM5-un-fla" id="eNO-bD-kIb"/>

@@ -40,9 +40,7 @@ class ItemViewController: UIViewController {
     }
     
     @IBAction func didPressFavoriteButton(_ sender: Any) {
-        if DatabaseManager.shared.checkFavoriteImage(withId: item.id) {
-      //  item.favorite = !item.favorite
-      //  if item.favorite {
+        if !DatabaseManager.shared.checkFavoriteImage(withId: item.id) {
             favoriteButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
             item.favoriteNumber += 1
             DatabaseManager.shared.addFavoriteImage(withID: item.id)
@@ -52,9 +50,6 @@ class ItemViewController: UIViewController {
             DatabaseManager.shared.removeFavoriteImage(withID: item.id)
         }
         favoritesNumber.text = "Favorites: \(item.favoriteNumber)"
-        
-        // remove this later
-        DatabaseManager.shared.updateObject(item)
     }
     
     @IBAction func didPressBackButton(_ sender: Any) {
@@ -69,7 +64,6 @@ class ItemViewController: UIViewController {
         userName.text = item.userName
         
         if DatabaseManager.shared.checkFavoriteImage(withId: item.id) {
-      //  if item.favorite {
             favoriteButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
         } else {
             favoriteButton.setImage(#imageLiteral(resourceName: "favorites"), for: .normal)

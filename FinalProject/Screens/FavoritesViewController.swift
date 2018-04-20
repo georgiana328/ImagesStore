@@ -28,28 +28,26 @@ class FavoritesViewController: UIViewController {
         case .light:
             itemsTableView.backgroundColor = UIColor.white
         }
-        itemsTableView.reloadData()
-        
-        checkFavoriteImages()
-    }
-    
-    func checkFavoriteImages() {
+
         items = databaseManager.getFavoriteItems()
-        
-        if items.isEmpty {
-            // prototype cell ""no favorites
-        }
-    
         itemsTableView.reloadData()
     }
 }
 
 extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if items.isEmpty {
+            return 1
+        }
         return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if items.isEmpty {
+            let cell = itemsTableView.dequeueReusableCell(withIdentifier: "NoFavoriteCell", for: indexPath)
+                return cell
+        }
+
         guard let cell = itemsTableView.dequeueReusableCell(withIdentifier: "ItemCellView", for: indexPath) as? ItemCellView else {
             return UITableViewCell()
         }
