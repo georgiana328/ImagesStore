@@ -37,12 +37,6 @@ class ItemCellView: UITableViewCell {
             favoriteButton.setImage(#imageLiteral(resourceName: "favorites"), for: .normal)
         }
         
-//        if model.favorite {
-//            favoriteButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
-//        } else {
-//            favoriteButton.setImage(#imageLiteral(resourceName: "favorites"), for: .normal)
-//        }
-        
         if !model.userImageUrl.isEmpty {
             downloadImage(fromURL: model.userImageUrl, for: .user)
         }
@@ -69,8 +63,6 @@ class ItemCellView: UITableViewCell {
     
     @IBAction func didPressFavoriteButton(_ sender: Any) {
         if !DatabaseManager.shared.checkFavoriteImage(withId: item.id) {
-      //  item.favorite = !item.favorite
-     //   if item.favorite {
             favoriteButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
             item.favoriteNumber += 1
             DatabaseManager.shared.addFavoriteImage(withID: item.id)
@@ -79,9 +71,6 @@ class ItemCellView: UITableViewCell {
             item.favoriteNumber -= 1
             DatabaseManager.shared.removeFavoriteImage(withID: item.id)
         }
-        
-        // remove this later
-       // DatabaseManager.shared.updateObject(item)
         delegate?.didChangeStateForCell(self, toFavoriteState: item.favorite)
     }
     

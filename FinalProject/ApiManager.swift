@@ -11,12 +11,13 @@ import Alamofire
 
 class ApiManager {
     private init() { }
-    
     static var shared = ApiManager()
+
+    let urlAPI = "https://pixabay.com/api/?key=8692212-e4cde87b24564d139a6686c6e"
     
     func getImages(for string: String, finished: @escaping (Bool, [Item]) -> Void) {
         Alamofire.request(
-            URL(string: "https://pixabay.com/api/?key=8692212-e4cde87b24564d139a6686c6e")!,
+            URL(string: urlAPI)!,
             method: .get,
             parameters: ["q": string,
                          "image_type": "photo"])

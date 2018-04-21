@@ -30,10 +30,13 @@ extension DatabaseManager {
             return
         }
         
-        let imagesIDs = getCurrentUserFavoriteImages()
+        var imagesIDs = getCurrentUserFavoriteImages()
+        imagesIDs.append(ImageID(id: id))
         let user = User(token: token, favoriteImagesIDs: imagesIDs)
-        
-        add(user, update: true)
+
+        try! realm.write {
+            add(user, update: true)
+        }
     }
     
     func removeFavoriteImage(withID id: Int) {
@@ -45,8 +48,10 @@ extension DatabaseManager {
         imagesIDs = imagesIDs.filter { $0.id != id }
         
         let user = User(token: token, favoriteImagesIDs: imagesIDs)
-        
-        add(user, update: true)
+
+        try! realm.write {
+            add(user, update: true)
+        }
     }
     
     func checkFavoriteImage(withId id: Int) -> Bool {
@@ -64,8 +69,10 @@ extension DatabaseManager {
         }
         
         let user = User(token: token, favoriteImagesIDs: [])
-        
-        add(user, update: false)
+
+        try! realm.write {
+            add(user, update: false)
+        }
     }
     
     func getCurrentUserFavoriteImages() -> [ImageID] {
@@ -110,8 +117,11 @@ extension DatabaseManager {
     func getFavoriteItems() -> [Item] {
         var localFavoriteItems: [Item] = []
         
-        let items = realm.objects(ItemObject.self).filter { $0.favorite == true }
-        
+        var items = Array(realm.objects(ItemObject.self))
+        let favoriteImagesIDs = getCurrentUserFavoriteImages().compactMap { $0.id}
+
+        items = items.filter { favoriteImagesIDs.contains($0.id) }
+
         for i in items {
             let item = Item(id: i.id,
                             userName: i.userName,
